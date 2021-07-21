@@ -1,5 +1,4 @@
-import sys
-import io
+import sys, io, os
 
 def search(string, type, path):
     if type == 'arquivo':
@@ -16,8 +15,13 @@ def search_file(string, file_path):
         if string in file.readlines():
             print(f'Texto ENCONTRADO no arquivo: {file_path}')
 
-def search_folder(folder_path):
-    pass
+def search_folder(string, folder_path):
+    with os.scandir(folder_path) as entries:
+        for entry in entries:
+            if entry.is_file():
+                search_file(string, path=entry.path)
+            if entry.is_dir():
+                search_folder(string, entry.path)
 
 args = len(sys.argv)
 
