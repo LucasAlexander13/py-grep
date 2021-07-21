@@ -3,10 +3,8 @@ import sys, io, os
 def search(string, type, path):
     if type == 'arquivo':
         search_file(string, path)
-
     elif type == 'pasta':
         search_folder(string, path)
-
     else:
         sys.exit('Tipo de busca não informado. Utilize "arquivo" ou "pasta" como tipos de busca.')
 
@@ -21,7 +19,7 @@ def search_folder(string, folder_path):
             if entry.is_file():
                 search_file(string, path=entry.path)
             if entry.is_dir():
-                search_folder(string, entry.path)
+                search_folder(string, path=entry.path)
 
 args = len(sys.argv)
 
@@ -34,4 +32,3 @@ if args > 3:
     
 else:
     sys.exit('Requer argumentos: string_de_busca tipo_de_busca(arquivo/pasta) caminho.')
-
